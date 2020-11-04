@@ -13,7 +13,7 @@ class FichierExcel
     def parsingDesNotes ( nomFeuillet )
 
         list = Array.new
-        if feuillet =  @structFichierExcel[nomFeuillet] #Ouvrir la feuille critére
+        if feuillet =  @structFichierExcel[nomFeuillet] #Ouvrir le feuillet en argument
             feuillet.each do | ligne |
                 if ligne != feuillet[0]
                     if nomFeuillet.eql? 'critere'
@@ -30,6 +30,22 @@ class FichierExcel
     end
 
     def triVoeu
-        
+        numligne = 0
+        if feuillet =  @structFichierExcel['voeu'] #Ouvrir le feuillet en argument
+            feuillet.each do | ligne |
+                numligne+1
+                if ligne != feuillet[0]
+                    if ligne[1].value.include?('UGA')
+                        if ligne[1].value.include?('IUGA')
+                        else
+                            puts ligne[1].value    
+                        end
+                    else
+                    end        
+                end
+            end
+        else
+            puts "pas de feuillet voeu"
+        end
     end
 end
