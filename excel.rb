@@ -11,7 +11,6 @@ class FichierExcel
     end
 
     def parsingDesNotes ( nomFeuillet )
-
         list = Array.new
         if feuillet =  @structFichierExcel[nomFeuillet] #Ouvrir le feuillet en argument
             feuillet.each do | ligne |
@@ -31,7 +30,7 @@ class FichierExcel
 
     def triVoeu
         numligne = 0
-        if feuillet =  @structFichierExcel['voeu'] #Ouvrir le feuillet en argument
+        if feuillet =  @structFichierExcel['voeu']
             feuillet.each do | ligne |
                 numligne+1
                 if ligne != feuillet[0]
