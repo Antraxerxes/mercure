@@ -3,7 +3,6 @@ require 'rubyXL'
 require_relative 'critereAdmission'
 require_relative 'etudiant'
 
-
 class FichierExcel
 
     def initialize( nom = "TestTab.xlsx" )
@@ -47,4 +46,5 @@ class FichierExcel
             puts "pas de feuillet voeu"
         end
     end
+
 end

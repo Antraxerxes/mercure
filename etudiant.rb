@@ -3,7 +3,6 @@ class Etudiant
     attr_accessor :noteTOEFL[4]
     attr_accessor :noteIELTS[4]
     attr_accessor :moyenneAcademique
-    attr_accessor :noteTOEFL[4]
 
     # Création de l'objet eleve
     def initialize( ligne )
