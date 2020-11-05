@@ -13,13 +13,15 @@ puts "\t Etape 2:  Création de la liste des résultats des étudiants"
 ListeEtudiants = fichier.parsingDesNotes 'etudiants'
 
 # Etape 3 Tri du tableau des voeu
-fichier.triVoeu
+fichier.addVoeu( ListeEtudiants )
+
 
 
 ###########################################################
-#Test parsing des structures
-#ListeEtudiants.each do |etudiant|
+# Test parsing des structures
+# ListeEtudiants.each do |etudiant|
 #    puts etudiant.nom + " a une moyenne academique de"
 #    puts etudiant.moyenneAcademique 
-#end
+#    puts etudiant.voeux[0].nom
+# end
 ###########################################################

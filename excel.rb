@@ -27,18 +27,19 @@ class FichierExcel
         list
     end
 
-    def triVoeu
-        numligne = 0
+    def addVoeu( etudiantList )
         if feuillet =  @structFichierExcel['voeu']
-            feuillet.each do | ligne |
-                numligne+1
-                if ligne != feuillet[0]
-                    if ligne[1].value.include?('UGA')
-                        if ligne[1].value.include?('IUGA')
+            feuillet.each do | voeu |
+                if voeu != feuillet[0]
+                    if voeu[1].value.include?('UGA')
+                        if voeu[1].value.include?('IUGA')
                         else
-                            puts ligne[1].value    
+                            etudiantList.each do |etudiant|
+                                if etudiant.nom.eql? voeu[0].value
+                                    etudiant.ajoutVoeu( voeu )    
+                                end
+                            end
                         end
-                    else
                     end        
                 end
             end
@@ -46,5 +47,4 @@ class FichierExcel
             puts "pas de feuillet voeu"
         end
     end
-
 end
