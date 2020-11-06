@@ -1,20 +1,28 @@
 require_relative 'excel'
 
+
 # texte d'introduction 
-puts "Bienvenue dans Mercure l'outil de gestion des mobilités internationales de l'UGA"
+puts "Bienvenue dans Mercure l'outil de gestion des mobilites internationales de l'UGA"
 # Etape 1 Creation de la liste des critéres d'admission
 
 fichier = FichierExcel.new
 
-puts "\t Etape 1: Création de la liste des critéres d'admission par accord"
+puts "\t Etape 1: Creation de la liste des criteres d'admission par accord"
 ListeCritereAdmission = fichier.parsingDesNotes 'critere'
 # Etape 2 Créer la liste des étudiants avec leur résultat
-puts "\t Etape 2:  Création de la liste des résultats des étudiants"
+puts "\t Etape 2: Creation de la liste des resultats des etudiants"
 ListeEtudiants = fichier.parsingDesNotes 'etudiants'
-
-# Etape 3 Tri du tableau des voeu
+# Etape 3 Ajout des voeux pour chaque etudiant
+puts "\t Etape 3: Recuperation des voeux de chaque etudiants"
 fichier.addVoeu( ListeEtudiants )
-
+# Etape 4 Verification des admissibilité pour chaque eleve
+puts "\t Etape 4: Verifications de l'admissibilite de chaque eleve dans chacun de ses voeux"
+ListeEtudiants.each do |etudiant|
+    etudiant.checkAdmission( ListeCritereAdmission )
+    end
+# Etape 5 Création du tableau des résultats
+puts "\t Etape 5: Création du tableau des resultats"
+fichier.printTab(ListeEtudiants)
 
 
 ###########################################################
