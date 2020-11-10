@@ -49,5 +49,15 @@ class FichierExcel
     end
 
     def printTab( listeEtudiants )
+        output = RubyXL::Workbook.new
+        feuillet = output.worksheets[0]
+        feuillet.sheet_name = 'Resultats'
+        index = 0
+        listeEtudiants.each do |etudiant|
+            feuillet.add_cell(index, 0 , etudiant.nom)
+            index = index + 1
+        end
+        output.write("./resultatAdmission.xlsx")
     end
+
 end
