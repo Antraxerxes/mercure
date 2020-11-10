@@ -22,6 +22,7 @@ ListeEtudiants.each do |etudiant|
 end
 # Etape 5 Création du tableau des résultats
 puts "\t Etape 5: Création du tableau des resultats"
+fichier.createOutputCanva
 fichier.printTab(ListeEtudiants)
 
 

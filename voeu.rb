@@ -9,7 +9,7 @@ class Voeu
     attr_accessor :failedTOEFL
     attr_accessor :failedIELTS
 
-    def initialize ( nom, composante, index, duree, dateDebut)
+    def initialize ( nom, composante, index, dateDebut, duree)
         @nom         = nom  
         @composante  = composante      
         @index       = index    
