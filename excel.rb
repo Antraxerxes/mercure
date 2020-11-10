@@ -75,17 +75,29 @@ class FichierExcel
                 feuillet.add_cell(index, 3 , voeu.dateDebut)
                 feuillet[index][3].set_number_format 'd-mm-yyyy' # set format for date
                 feuillet.add_cell(index, 4 , voeu.duree)
+                #ajout du statut d'admission pour chaque voeu
                 if voeu.statut == true
-                    statuttostring ="admis"
+                    feuillet.add_cell(index, 5 , "admis" )
+                    feuillet[index][5].change_fill('0ba53d')
                 else
-                    statuttostring = "refuse"
+                    feuillet.add_cell(index, 5 , "refuse" )
+                    feuillet[index][5].change_fill('c80d0d')
                 end
-                feuillet.add_cell(index, 5 , statuttostring )
-
+                failedstring = ""
+                # raison du refus si refus
+                if voeu.failedMoy == true
+                    failedstring +="Moyenne academique insuffisante"
+                end
+                if voeu.failedTOEFL == true
+                    failedstring +=" Resultat TOEFL insuffisant"
+                end
+                if voeu.failedIELTS == true
+                    failedstring +=" Resultat IELTS insuffisant"
+                end
+                feuillet.add_cell(index, 6 , failedstring )
                 index = index + 1
             end
         end
         @outputTab.write("./resultatAdmission.xlsx")
     end
-
 end
