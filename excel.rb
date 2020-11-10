@@ -1,4 +1,5 @@
 require 'rubyXL'
+require 'rubyXL/convenience_methods'
 
 require_relative 'critereAdmission'
 require_relative 'etudiant'
@@ -7,6 +8,7 @@ class FichierExcel
 
     def initialize( nom = "TestTab.xlsx" )
         @structFichierExcel = RubyXL::Parser.parse(nom) #ouvrir le fichier excel
+        @outputTab = RubyXL::Workbook.new #creer le fichier de sortie
     end
 
     def parsingDesNotes ( nomFeuillet )
@@ -48,16 +50,42 @@ class FichierExcel
         end
     end
 
-    def printTab( listeEtudiants )
-        output = RubyXL::Workbook.new
-        feuillet = output.worksheets[0]
+    def createOutputCanva
+        feuillet = @outputTab.worksheets[0]
         feuillet.sheet_name = 'Resultats'
-        index = 0
+        feuillet.add_cell(0, 0 , 'Nom')
+        feuillet.add_cell(0, 1 , 'Composante')
+        feuillet.add_cell(0, 2 , 'Voeu')
+        feuillet.add_cell(0, 3 , 'Date de debut')
+        feuillet.add_cell(0, 4 , 'Duree')
+        feuillet.add_cell(0, 5 , 'Admissibimlité')
+        feuillet.add_cell(0, 6 , 'Raison refus')
+
+    end
+
+    def printTab( listeEtudiants )
+        
+        feuillet = @outputTab.worksheets[0]
+        index = 1
         listeEtudiants.each do |etudiant|
-            feuillet.add_cell(index, 0 , etudiant.nom)
-            index = index + 1
+            etudiant.voeux.each do |voeu|
+                feuillet.add_cell(index, 0 , etudiant.nom)
+                feuillet.add_cell(index, 1 , voeu.composante)
+                feuillet.add_cell(index, 2 , voeu.nom)
+                feuillet.add_cell(index, 3 , voeu.dateDebut)
+                feuillet[index][3].set_number_format 'd-mm-yyyy' # set format for date
+                feuillet.add_cell(index, 4 , voeu.duree)
+                if voeu.statut == true
+                    statuttostring ="admis"
+                else
+                    statuttostring = "refuse"
+                end
+                feuillet.add_cell(index, 5 , statuttostring )
+
+                index = index + 1
+            end
         end
-        output.write("./resultatAdmission.xlsx")
+        @outputTab.write("./resultatAdmission.xlsx")
     end
 
 end
