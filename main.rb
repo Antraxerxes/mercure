@@ -19,7 +19,7 @@ fichier.addVoeu( ListeEtudiants )
 puts "\t Etape 4: Verifications de l'admissibilite de chaque eleve dans chacun de ses voeux"
 ListeEtudiants.each do |etudiant|
     etudiant.checkAdmission( ListeCritereAdmission )
-    end
+end
 # Etape 5 Création du tableau des résultats
 puts "\t Etape 5: Création du tableau des resultats"
 fichier.printTab(ListeEtudiants)

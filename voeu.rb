@@ -5,14 +5,20 @@ class Voeu
     attr_accessor :duree
     attr_accessor :dateDebut
     attr_accessor :statut
+    attr_accessor :failedMoy
+    attr_accessor :failedTOEFL
+    attr_accessor :failedIELTS
 
     def initialize ( nom, composante, index, duree, dateDebut)
-        @nom        = nom  
-        @composante = composante      
-        @index      = index    
-        @duree      = duree    
-        @dateDebut  = dateDebut
-        @statut     = false
+        @nom         = nom  
+        @composante  = composante      
+        @index       = index    
+        @duree       = duree    
+        @dateDebut   = dateDebut
+        @statut      = false
+        @failedMoy   = false
+        @failedTOEFL = false
+        @failedIELTS = false
     end
 
     def getcritere( listcritere )
