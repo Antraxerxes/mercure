@@ -47,4 +47,7 @@ class FichierExcel
             puts "pas de feuillet voeu"
         end
     end
+
+    def printTab( listeEtudiants )
+    end
 end
