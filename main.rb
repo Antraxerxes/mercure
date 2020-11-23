@@ -8,10 +8,10 @@ puts "Bienvenue dans Mercure l'outil de gestion des mobilites internationales de
 fichier = FichierExcel.new
 
 puts "\t Etape 1: Creation de la liste des criteres d'admission par accord"
-ListeCritereAdmission = fichier.parsingDesNotes 'critere'
+ListeCritereAdmission = fichier.parsingDesNotes 'Criteres par accords'
 # Etape 2 Créer la liste des étudiants avec leur résultat
 puts "\t Etape 2: Creation de la liste des resultats des etudiants"
-ListeEtudiants = fichier.parsingDesNotes 'etudiants'
+ListeEtudiants = fichier.parsingDesNotes 'Eligibilite etudiants'
 # Etape 3 Ajout des voeux pour chaque etudiant
 puts "\t Etape 3: Recuperation des voeux de chaque etudiants"
 fichier.addVoeu( ListeEtudiants )

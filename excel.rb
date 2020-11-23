@@ -16,9 +16,9 @@ class FichierExcel
         if feuillet =  @structFichierExcel[nomFeuillet] #Ouvrir le feuillet en argument
             feuillet.each do | ligne |
                 if ligne != feuillet[0]
-                    if nomFeuillet.eql? 'critere'
+                    if nomFeuillet.eql? 'Criteres par accords'
                         list << CritereAdmission.new( ligne )
-                    elsif nomFeuillet.eql? 'etudiants'
+                    elsif nomFeuillet.eql? 'Eligibilite etudiants'
                         list << Etudiant.new( ligne )
                     end
                 end 
@@ -30,7 +30,7 @@ class FichierExcel
     end
 
     def addVoeu( etudiantList )
-        if feuillet =  @structFichierExcel['voeu']
+        if feuillet =  @structFichierExcel['Voeux etudiants']
             feuillet.each do | voeu |
                 if voeu != feuillet[0]
                     if voeu[1].value.include?('UGA')
@@ -57,7 +57,7 @@ class FichierExcel
         feuillet.add_cell(0, 1 , 'Composante')
         feuillet.add_cell(0, 2 , 'Voeu')
         feuillet.add_cell(0, 3 , 'Date de debut')
-        feuillet.add_cell(0, 4 , 'Duree')
+        feuillet.add_cell(0, 4 , 'Date de fin')
         feuillet.add_cell(0, 5 , 'Admissibimlité')
         feuillet.add_cell(0, 6 , 'Raison refus')
 
@@ -74,7 +74,8 @@ class FichierExcel
                 feuillet.add_cell(index, 2 , voeu.nom)
                 feuillet.add_cell(index, 3 , voeu.dateDebut)
                 feuillet[index][3].set_number_format 'd-mm-yyyy' # set format for date
-                feuillet.add_cell(index, 4 , voeu.duree)
+                feuillet.add_cell(index, 4 , voeu.dateFin)
+                feuillet[index][4].set_number_format 'd-mm-yyyy' # set format for date
                 #ajout du statut d'admission pour chaque voeu
                 if voeu.statut == true
                     feuillet.add_cell(index, 5 , "admis" )

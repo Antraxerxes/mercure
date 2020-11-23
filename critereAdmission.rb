@@ -6,9 +6,9 @@ class CritereAdmission
 
     # Création de l'accord
     def initialize( ligne )
-        @nomAccord = ligne[0].value
-        @critereAcademique = ligne[1].value  
-        @critereTOEFL = [ ligne[1].value, ligne[2].value, ligne[3].value, ligne[4].value ]  
-        @critereIELTS = [ ligne[5].value, ligne[6].value, ligne[7].value, ligne[8].value ] 
+        @nomAccord = ligne[1].value
+        @critereAcademique = ligne[2].value  
+        @critereTOEFL = [ ligne[3].value, ligne[4].value, ligne[5].value, ligne[6].value, ligne[7].value ]  
+        @critereIELTS = [ ligne[9].value, ligne[10].value, ligne[11].value, ligne[12].value, ligne[13].value ] 
     end
 end
