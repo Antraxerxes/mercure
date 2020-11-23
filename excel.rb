@@ -33,8 +33,8 @@ class FichierExcel
         if feuillet =  @structFichierExcel['Voeux etudiants']
             feuillet.each do | voeu |
                 if voeu != feuillet[0]
-                    if voeu[1].value.include?('UGA')
-                        if voeu[1].value.include?('IUGA')
+                    if voeu[3].value.include?('UGA')
+                        if voeu[3].value.include?('IUGA')
                         else
                             etudiantList.each do |etudiant|
                                 if etudiant.nom.eql? voeu[0].value

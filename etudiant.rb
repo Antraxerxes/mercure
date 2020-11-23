@@ -11,8 +11,8 @@ class Etudiant
     def initialize( ligne )
         @nom = ligne[0].value
         @moyenneAcademique = ligne[1].value  
-        @noteTOEFL = [ ligne[1].value, ligne[2].value, ligne[3].value, ligne[4].value, ligne[5].value ]
-        @noteIELTS = [ ligne[6].value, ligne[7].value, ligne[8].value, ligne[9].value, ligne[10].value ]
+        @noteTOEFL = [ ligne[2].value, ligne[3].value, ligne[4].value, ligne[5].value, ligne[6].value ]
+        @noteIELTS = [ ligne[7].value, ligne[8].value, ligne[9].value, ligne[10].value, ligne[11].value ]
         @voeux = Array.new
     end
 
