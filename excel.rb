@@ -3,12 +3,14 @@ require 'rubyXL/convenience_methods'
 
 require_relative 'critereAdmission'
 require_relative 'etudiant'
+require_relative 'jury'
 
 class FichierExcel
 
     def initialize( nom = "TestTab.xlsx" )
         @structFichierExcel = RubyXL::Parser.parse(nom) #ouvrir le fichier excel
         @outputTab = RubyXL::Workbook.new #creer le fichier de sortie
+        @juryOutputTab = RubyXL::Workbook.new #creer le fichier de sortie
     end
 
     def parsingDesNotes ( nomFeuillet )
@@ -29,6 +31,18 @@ class FichierExcel
         list
     end
 
+    def parsingJurys ( nomFeuillet)
+        list = Array.new
+        if feuillet =  @structFichierExcel[nomFeuillet] #Ouvrir le feuillet en argument
+            13.times do |i| 
+                list << Jury.new( feuillet[0][i], feuillet[1][i], feuillet[2][i] ) 
+            end
+        else
+            puts "pas de feuillet #{nomFeuillet}"
+        end
+        list
+    end
+
     def addVoeu( etudiantList )
         if feuillet =  @structFichierExcel['Voeux etudiants']
             feuillet.each do | voeu |
@@ -37,8 +51,9 @@ class FichierExcel
                         if voeu[3].value.include?('IUGA')
                         else
                             etudiantList.each do |etudiant|
-                                if etudiant.nom.eql? voeu[0].value
-                                    etudiant.ajoutVoeu( voeu )    
+
+                                if etudiant.nom.casecmp? voeu[0].value
+                                    etudiant.ajoutVoeu( voeu )
                                 end
                             end
                         end
@@ -101,4 +116,32 @@ class FichierExcel
         end
         @outputTab.write("./resultatAdmission.xlsx")
     end
+
+    def createJuryOutputCanva
+        feuillet = @juryOutputTab.worksheets[0]
+        feuillet.sheet_name = 'Jury'
+        feuillet.add_cell(0, 0 , 'Nom')
+        feuillet.add_cell(0, 1 , 'jureA')
+        feuillet.add_cell(0, 2 , 'jureB')
+        feuillet.add_cell(0, 3 , 'Etudiants')
+
+    end
+
+    def printJuryTab( listeJury )
+        
+        feuillet = @juryOutputTab.worksheets[0]
+        index = 1
+        listeJury.each do |jury|
+            puts jury.nom
+                feuillet.add_cell(index, 0 , jury.nom)
+                feuillet.add_cell(index, 1 , jury.jureA)
+                feuillet.add_cell(index, 2 , jury.jureB)
+                jury.etudiants.each do |etudiant|
+                    feuillet.add_cell(index, 3 , etudiant)
+                    index = index + 1
+                end
+        end
+        @juryOutputTab.write("./Jurys.xlsx")
+    end
+
 end

@@ -6,6 +6,7 @@ class Etudiant
     attr_accessor :noteIELTS
     attr_accessor :moyenneAcademique
     attr_accessor :voeux
+    attr_accessor :composante
 
     # Création de l'objet eleve
     def initialize( ligne )
@@ -14,6 +15,7 @@ class Etudiant
         @noteTOEFL = [ ligne[2].value, ligne[3].value, ligne[4].value, ligne[5].value, ligne[6].value ]
         @noteIELTS = [ ligne[7].value, ligne[8].value, ligne[9].value, ligne[10].value, ligne[11].value ]
         @voeux = Array.new
+        @composante = ligne[12].value
     end
 
     def ajoutVoeu( voeu )
@@ -23,7 +25,7 @@ class Etudiant
     def checkAdmission( listcritere )
         voeux.each do |voeu|
             critere = voeu.getcritere( listcritere )
-            if critere != false
+            if critere 
                 voeu.statut = true
                 #check moyenne academique
                 if @moyenneAcademique < critere.critereAcademique && critere.critereAcademique != 0

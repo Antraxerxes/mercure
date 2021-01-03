@@ -25,12 +25,40 @@ puts "\t Etape 5: Création du tableau des resultats"
 fichier.createOutputCanva
 fichier.printTab(ListeEtudiants)
 
+# Etape 6 Création des jurys 
+puts "\t Etape 6: Création des jurys "
+ListeJury = fichier.parsingJurys "Jurés"
+
+# Etape 7 Création des jurys 
+puts "\t Etape 7: attribution des jury "
+listEtudiantJury =  Array.new { Array.new(2) }
+ListeEtudiants.each do |etudiant|
+    if listEtudiantJury.include?([etudiant.nom , etudiant.composante]) == false
+        listEtudiantJury << [etudiant.nom , etudiant.composante]
+    end
+end
+listEtudiantJury.each do |etudiant|
+    jury = ListeJury.sample
+    while jury.composanteA.casecmp(etudiant[1]) == 0 || jury.composanteB.casecmp(etudiant[1]) == 0
+        puts 'la'
+        jury = ListeJury.sample
+    end
+    jury.etudiants << etudiant[0]
+end
+
+# Etape 8 Création du tableau des jury
+puts "\t Etape 8: Création du tableau des jurys"
+fichier.createJuryOutputCanva
+fichier.printJuryTab(ListeJury)
+
+
 
 ###########################################################
 # Test parsing des structures
-# ListeEtudiants.each do |etudiant|
-#    puts etudiant.nom + " a une moyenne academique de"
-#    puts etudiant.moyenneAcademique 
-#    puts etudiant.voeux[0].nom
-# end
+#ListeJury.each do |jury|
+#    puts jury.nom 
+#    puts jury.jureA 
+#    puts jury.jureB
+#    puts jury.etudiants.first
+#end
 ###########################################################
