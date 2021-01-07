@@ -14,7 +14,7 @@ class Voeu
         @composante  = composante      
         @index       = index  
         @dateDebut   = dateDebut  
-        @duree     = duree    
+        @duree       = duree    
         @statut      = false
         @failedMoy   = false
         @failedTOEFL = false
@@ -34,5 +34,4 @@ class Voeu
             puts "pas de critere pour le voeu #{nom}"
         end
     end
-    
 end

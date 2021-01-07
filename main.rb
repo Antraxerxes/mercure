@@ -56,16 +56,19 @@ i = 1
 ListeEtudiants.each do |etudiant|
     etudiant.rang = i
     i = i+1
-    puts etudiant.nom 
-    puts etudiant.evalComposante 
-    puts etudiant.rang 
 end
 
 # Etape 10 attribution des voeux
-puts "\t Etape 10: attribution des voeuxt"
+puts "\t Etape 10: attribution des voeux"
+ListPlace = fichier.parsingPlace( 'places par accords' )
+ListeEtudiants.each do |etudiant|
+    etudiant.attributionDeVoeu ( ListPlace )
+end
+
 ###########################################################
-# Test parsing des structures
-ListeJury.each do |jury|
-    #puts jury.nom   
+#Test parsing des structures
+ListeEtudiants.each do |jury|
+    puts jury.nom 
+    puts jury.attribution.nom
 end
 ###########################################################

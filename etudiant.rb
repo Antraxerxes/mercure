@@ -9,6 +9,7 @@ class Etudiant
     attr_accessor :composante
     attr_accessor :evalComposante
     attr_accessor :rang
+    attr_accessor :attribution
 
     # Création de l'objet eleve
     def initialize( ligne )
@@ -20,6 +21,7 @@ class Etudiant
         @evalComposante = ligne[7].value
         @voeux = Array.new
         @rang = 0
+        @attribution = Voeu.new(0,0,0,0,0)
     end
 
     def ajoutVoeu( voeu )
@@ -45,6 +47,22 @@ class Etudiant
                 if @noteIELTS != 0 && critere.critereIELTS != 0 && @noteIELTS < critere.critereIELTS 
                     voeu.statut = false
                     voeu.failedIELTS = true 
+                end
+            end
+        end
+    end
+
+    def attributionDeVoeu ( listPlaces)
+        statutAttribution = false
+        @voeux.sort { |a, b|  b.index <=> a.index }
+        @voeux.each do |voeu|
+            if voeu.statut == true && statutAttribution == false 
+                listPlaces.each do |place|
+                    if (place.nom.casecmp? voeu.nom) && (place.nbplace.to_i >= voeu.duree)
+                        @attribution = voeu  
+                        place.nbplace = place.nbplace.to_i - voeu.duree
+                        statutAttribution = true
+                    end
                 end
             end
         end

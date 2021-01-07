@@ -5,6 +5,7 @@ require 'rubyXL/convenience_methods'
 require_relative 'critereAdmission'
 require_relative 'etudiant'
 require_relative 'jury'
+require_relative 'place'
 
 class FichierExcel
 
@@ -41,6 +42,16 @@ class FichierExcel
             15.times do |i|
                 list << Jury.new( feuillet[index][0], feuillet[index][1], feuillet[index][2] )
                 index = index+1
+            end
+        end
+        list
+    end
+
+    def parsingPlace ( nomFeuillet)
+        list = Array.new
+        if feuillet =  @structFichierExcel[nomFeuillet] #Ouvrir le feuillet en argument
+            feuillet.each do | ligne |
+                list << Place.new( ligne )
             end
         end
         list
