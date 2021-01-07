@@ -133,8 +133,8 @@ class FichierExcel
             feuillet.add_cell(index, 1 , jury.jureA)
             feuillet.add_cell(index, 2 , jury.jureB)
             jury.etudiants.each do |etudiant|
-                feuillet.add_cell(index, 3 , etudiant[0])
-                feuillet.add_cell(index, 4 , etudiant[1])
+                feuillet.add_cell(index, 3 , etudiant.nom)
+                feuillet.add_cell(index, 4 , etudiant.composante)
                 index = index + 1
 
             end

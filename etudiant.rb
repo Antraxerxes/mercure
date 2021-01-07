@@ -8,6 +8,7 @@ class Etudiant
     attr_accessor :voeux
     attr_accessor :composante
     attr_accessor :evalComposante
+    attr_accessor :rang
 
     # Création de l'objet eleve
     def initialize( ligne )
@@ -18,6 +19,7 @@ class Etudiant
         @moyenneAcademique = ligne[6].value
         @evalComposante = ligne[7].value
         @voeux = Array.new
+        @rang = 0
     end
 
     def ajoutVoeu( voeu )
