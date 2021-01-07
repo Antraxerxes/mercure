@@ -31,7 +31,7 @@ class Etudiant
     def checkAdmission( listcritere )
         voeux.each do |voeu|
             critere = voeu.getcritere( listcritere )
-            if critere 
+            if critere != false 
                 voeu.statut = true
                 #check moyenne academique
                 if @moyenneAcademique < critere.critereAcademique && critere.critereAcademique != 0
@@ -48,6 +48,9 @@ class Etudiant
                     voeu.statut = false
                     voeu.failedIELTS = true 
                 end
+            else
+                voeu.statut = false
+                voeu.failedCritere = true
             end
         end
     end

@@ -117,6 +117,9 @@ class FichierExcel
                 if voeu.failedIELTS == true
                     failedstring +=" Resultat IELTS insuffisant"
                 end
+                if voeu.failedCritere == true
+                    failedstring +=" Pas de critére pour ce voeu"
+                end
                 feuillet.add_cell(index, 6 , failedstring )
                 index = index + 1
             end

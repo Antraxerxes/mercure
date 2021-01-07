@@ -29,7 +29,7 @@ puts "\t Etape 6: Création des jurys "
 ListeJury = fichier.parsingJurys "Jurés"
 
 #Etape 7 Création des jurys 
-puts "\t Etape 7: attribution des jury "
+puts "\t Etape 7: Attribution des jury "
 ListeEtudiants.each do |etudiant|
     jury = ListeJury.sample
     while jury.composanteA.casecmp(etudiant.composante) == 0 || jury.composanteB.casecmp(etudiant.composante) == 0
@@ -59,7 +59,7 @@ ListeEtudiants.each do |etudiant|
 end
 
 # Etape 10 attribution des voeux
-puts "\t Etape 10: attribution des voeux"
+puts "\t Etape 10: Attribution des voeux"
 ListPlace = fichier.parsingPlace( 'places par accords' )
 ListeEtudiants.each do |etudiant|
     etudiant.attributionDeVoeu ( ListPlace )
@@ -67,8 +67,8 @@ end
 
 ###########################################################
 #Test parsing des structures
-ListeEtudiants.each do |jury|
-    puts jury.nom 
-    puts jury.attribution.nom
-end
+# ListeEtudiants.each do |jury|
+#     puts jury.nom 
+#     puts jury.attribution.nom
+# end
 ###########################################################
