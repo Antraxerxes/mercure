@@ -1,6 +1,7 @@
 require 'rubyXL'
 require 'rubyXL/convenience_methods'
 
+
 require_relative 'critereAdmission'
 require_relative 'etudiant'
 require_relative 'jury'
@@ -18,9 +19,11 @@ class FichierExcel
         if feuillet =  @structFichierExcel[nomFeuillet] #Ouvrir le feuillet en argument
             feuillet.each do | ligne |
                 if ligne != feuillet[0]
-                    if nomFeuillet.eql? 'Criteres par accords'
-                        list << CritereAdmission.new( ligne )
-                    elsif nomFeuillet.eql? 'Eligibilite etudiants'
+                    if nomFeuillet.eql? 'Critères par accords'
+                        if ligne[4].value
+                            list << CritereAdmission.new( ligne )
+                        end
+                    elsif nomFeuillet.eql? 'Eligibilité etudiants'
                         list << Etudiant.new( ligne )
                     end
                 end 
@@ -33,31 +36,25 @@ class FichierExcel
 
     def parsingJurys ( nomFeuillet)
         list = Array.new
+        index = 8
         if feuillet =  @structFichierExcel[nomFeuillet] #Ouvrir le feuillet en argument
-            13.times do |i| 
-                list << Jury.new( feuillet[0][i], feuillet[1][i], feuillet[2][i] ) 
+            15.times do |i|
+                list << Jury.new( feuillet[index][0], feuillet[index][1], feuillet[index][2] )
+                index = index+1
             end
-        else
-            puts "pas de feuillet #{nomFeuillet}"
         end
         list
     end
 
     def addVoeu( etudiantList )
-        if feuillet =  @structFichierExcel['Voeux etudiants']
+        if feuillet =  @structFichierExcel['Voeux étudiants']
             feuillet.each do | voeu |
                 if voeu != feuillet[0]
-                    if voeu[3].value.include?('UGA')
-                        if voeu[3].value.include?('IUGA')
-                        else
-                            etudiantList.each do |etudiant|
-
-                                if etudiant.nom.casecmp? voeu[0].value
-                                    etudiant.ajoutVoeu( voeu )
-                                end
-                            end
+                    etudiantList.each do |etudiant|
+                        if etudiant.nom.casecmp? voeu[1].value
+                            etudiant.ajoutVoeu( voeu )
                         end
-                    end        
+                    end
                 end
             end
         else
@@ -72,7 +69,7 @@ class FichierExcel
         feuillet.add_cell(0, 1 , 'Composante')
         feuillet.add_cell(0, 2 , 'Voeu')
         feuillet.add_cell(0, 3 , 'Date de debut')
-        feuillet.add_cell(0, 4 , 'Date de fin')
+        feuillet.add_cell(0, 4 , 'Duree')
         feuillet.add_cell(0, 5 , 'Admissibimlité')
         feuillet.add_cell(0, 6 , 'Raison refus')
 
@@ -89,8 +86,7 @@ class FichierExcel
                 feuillet.add_cell(index, 2 , voeu.nom)
                 feuillet.add_cell(index, 3 , voeu.dateDebut)
                 feuillet[index][3].set_number_format 'd-mm-yyyy' # set format for date
-                feuillet.add_cell(index, 4 , voeu.dateFin)
-                feuillet[index][4].set_number_format 'd-mm-yyyy' # set format for date
+                feuillet.add_cell(index, 4 , voeu.duree)
                 #ajout du statut d'admission pour chaque voeu
                 if voeu.statut == true
                     feuillet.add_cell(index, 5 , "admis" )
@@ -114,7 +110,7 @@ class FichierExcel
                 index = index + 1
             end
         end
-        @outputTab.write("./resultatAdmission.xlsx")
+        @outputTab.write("resultatAdmission.xlsx")
     end
 
     def createJuryOutputCanva
@@ -124,6 +120,7 @@ class FichierExcel
         feuillet.add_cell(0, 1 , 'jureA')
         feuillet.add_cell(0, 2 , 'jureB')
         feuillet.add_cell(0, 3 , 'Etudiants')
+        feuillet.add_cell(0, 4 , 'Composante')
 
     end
 
@@ -132,16 +129,17 @@ class FichierExcel
         feuillet = @juryOutputTab.worksheets[0]
         index = 1
         listeJury.each do |jury|
-            puts jury.nom
-                feuillet.add_cell(index, 0 , jury.nom)
-                feuillet.add_cell(index, 1 , jury.jureA)
-                feuillet.add_cell(index, 2 , jury.jureB)
-                jury.etudiants.each do |etudiant|
-                    feuillet.add_cell(index, 3 , etudiant)
-                    index = index + 1
-                end
+            feuillet.add_cell(index, 0 , jury.nom)
+            feuillet.add_cell(index, 1 , jury.jureA)
+            feuillet.add_cell(index, 2 , jury.jureB)
+            jury.etudiants.each do |etudiant|
+                feuillet.add_cell(index, 3 , etudiant[0])
+                feuillet.add_cell(index, 4 , etudiant[1])
+                index = index + 1
+
+            end
         end
-        @juryOutputTab.write("./Jurys.xlsx")
+        @juryOutputTab.write("Jurys.xlsx")
     end
 
 end

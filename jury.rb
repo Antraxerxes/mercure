@@ -15,7 +15,7 @@ class Jury
         @composanteA = jureA.split(' ').first
         @jureB = colonneC.value
         @composanteB = jureB.split(' ').first
-        @etudiants = Array.new
+        @etudiants = Array.new { Array.new(2) }
     end
 
 end

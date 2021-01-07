@@ -2,19 +2,19 @@ class Voeu
     attr_accessor :nom
     attr_accessor :composante
     attr_accessor :index
-    attr_accessor :dateFin
+    attr_accessor :duree
     attr_accessor :dateDebut
     attr_accessor :statut
     attr_accessor :failedMoy
     attr_accessor :failedTOEFL
     attr_accessor :failedIELTS
 
-    def initialize ( nom, composante, index, dateDebut, dateFin)
+    def initialize ( nom, composante, index, dateDebut, duree)
         @nom         = nom  
         @composante  = composante      
         @index       = index  
         @dateDebut   = dateDebut  
-        @dateFin     = dateFin    
+        @duree     = duree    
         @statut      = false
         @failedMoy   = false
         @failedTOEFL = false
