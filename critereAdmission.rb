@@ -9,6 +9,6 @@ class CritereAdmission
         @nomAccord = ligne[1].value
         @critereAcademique = ligne[2].value  
         @critereTOEFL = ligne[3].value
-        @critereIELTS = ligne[4].value
+        @critereIELTS = ligne[9].value
     end
 end

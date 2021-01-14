@@ -9,6 +9,7 @@ class Voeu
     attr_accessor :failedTOEFL
     attr_accessor :failedIELTS
     attr_accessor :failedCritere
+    attr_accessor :failedrang
 
     def initialize ( nom, composante, index, dateDebut, duree)
         @nom           = nom  
@@ -21,12 +22,13 @@ class Voeu
         @failedTOEFL   = false
         @failedIELTS   = false
         @failedCritere = false
+        @failedrang    = false
     end
 
     def getcritere( listcritere )
         critereSortie = 0
         listcritere.each do |critere|
-            if @nom.eql?(critere.nomAccord)
+            if @nom.strip.eql?(critere.nomAccord.strip)
                 critereSortie = critere
             end
         end

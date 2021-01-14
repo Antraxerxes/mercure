@@ -58,17 +58,48 @@ ListeEtudiants.each do |etudiant|
     i = i+1
 end
 
-# Etape 10 attribution des voeux
-puts "\t Etape 10: Attribution des voeux"
-ListPlace = fichier.parsingPlace( 'places par accords' )
-ListeEtudiants.each do |etudiant|
-    etudiant.attributionDeVoeu ( ListPlace )
-end
+verif = false
+# # Etape 10 Correction 
+# puts "\t Etape 10: Correction"
+# if fichier.structFichierExcel[' admissibilité voeux']
+#     fichier.correctionVoeu(ListeEtudiants)
+#     verif=true
+# else
+#     puts "Verification manuelle necessaire pour l'attribution des voeux"
+# end
+
+# if verif
+    # Etape 11 attribution des voeux
+    puts "\t Etape 11: Attribution des voeux"
+    ListPlace = fichier.parsingPlace( 'places par accords' )
+    ListeEtudiants.each do |etudiant|
+        etudiant.attributionDeVoeu ( ListPlace )
+    end
+
+    # Etape 12 listing accord potentiel
+    puts "\t Etape 12: listing accord potentiel"
+    ListeEtudiants.each do |etudiant|
+        if etudiant.statutAttribution == false
+            etudiant.creerListAdmissible( ListeCritereAdmission, ListPlace )
+        end
+    end
+
+    # Etape 13 tableau de repartition des voeux
+    puts "\t Etape 13: tableau de repartition des voeux"
+    fichier.createRepartitionCanva
+    fichier.printRepartitionTab(ListeEtudiants)
+# end
 
 ###########################################################
 #Test parsing des structures
-# ListeEtudiants.each do |jury|
-#     puts jury.nom 
-#     puts jury.attribution.nom
+# ListeEtudiants.each do |etudiant|
+#     puts etudiant.nom
+#     if etudiant.attribution = 0 
+#         etudiant.listadmissible.each do |admissible|
+#             puts admissible
+#         end
+#     else
+#         puts etudiant.attribution.nom
+#     end
 # end
 ###########################################################
