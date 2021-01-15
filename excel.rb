@@ -193,7 +193,7 @@ class FichierExcel
                 feuillet.add_cell(index, 4 , etudiant.rang)
                 feuillet.add_cell(index, 5 , etudiant.attribution.nom)
                 feuillet.add_cell(index, 6 , etudiant.attribution.duree)
-                feuillet.add_cell(index, 6 , etudiant.attribution.dateDebut)
+                feuillet.add_cell(index, 7 , etudiant.attribution.dateDebut)
                 index += 1
             end
         end
@@ -222,6 +222,7 @@ class FichierExcel
                 if voeuTab[0].value.eql?(etudiant.nom )
                     etudiant.voeux.each do |voeuEtudiant|
                         if voeuEtudiant.nom.eql?(voeuTab[3].value )
+                            voeuEtudiant.duree = voeuTab[5].value
                             if voeuTab[6].value.eql?('admis')
                                 voeuEtudiant.statut = true
                             else

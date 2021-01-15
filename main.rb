@@ -60,15 +60,15 @@ end
 
 verif = false
 # # Etape 10 Correction 
-# puts "\t Etape 10: Correction"
-# if fichier.structFichierExcel[' admissibilité voeux']
-#     fichier.correctionVoeu(ListeEtudiants)
-#     verif=true
-# else
-#     puts "Verification manuelle necessaire pour l'attribution des voeux"
-# end
+puts "\t Etape 10: Correction"
+if fichier.structFichierExcel[' admissibilité voeux']
+    fichier.correctionVoeu(ListeEtudiants)
+    verif=true
+else
+    puts "Verification manuelle necessaire pour l'attribution des voeux"
+end
 
-# if verif
+if verif
     # Etape 11 attribution des voeux
     puts "\t Etape 11: Attribution des voeux"
     ListPlace = fichier.parsingPlace( 'places par accords' )
@@ -88,7 +88,7 @@ verif = false
     puts "\t Etape 13: tableau de repartition des voeux"
     fichier.createRepartitionCanva
     fichier.printRepartitionTab(ListeEtudiants)
-# end
+end
 
 ###########################################################
 #Test parsing des structures

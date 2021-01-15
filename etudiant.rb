@@ -71,9 +71,9 @@ class Etudiant
         voeux.each do |voeu|
             if voeu.statut == true && statutAttribution == false 
                 listPlaces.each do |place|
-                    if (place.nom.casecmp? voeu.nom) && (place.nbplace >= voeu.duree)
+                    if  (place.nom.casecmp? voeu.nom) && (place.nbplace >= voeu.duree.to_i)
                         @attribution = voeu  
-                        place.nbplace -= voeu.duree
+                        place.nbplace -= voeu.duree.to_i
                         @statutAttribution = true
                     end
                 end
